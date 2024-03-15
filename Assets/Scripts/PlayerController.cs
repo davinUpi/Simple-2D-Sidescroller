@@ -52,6 +52,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool _onGround = true;
+    public bool OnGround
+    {
+        private set
+        {
+            _onGround = value;
+            _animator.SetBool("OnGround", _onGround);
+        }
+        get { return _onGround; }
+    }
+
     #region UNITY_METHODS
 
     private void Awake()
@@ -71,6 +82,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GroundCheck();
+        _animator.SetFloat("VSpeed", _rbody.velocity.y);
+
         HorizontalMove = Input.GetAxis("Horizontal");
         Jump();
     }
@@ -83,21 +97,25 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        _rbody.velocity = new Vector2(_horizontalMove * MoveSpeed, _rbody.velocity.y);
+        _rbody.velocity = new Vector2(
+                HorizontalMove * MoveSpeed,
+                _rbody.velocity.y
+            );
     }
 
     private void Jump()
     {
-        if(Input.GetButtonDown("Jump") && OnTheGround())
+        if(Input.GetButtonDown("Jump") && OnGround)
         {
             _rbody.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+            _animator.SetTrigger("Jump");
         }
     }
 
-    private bool OnTheGround()
+    private void GroundCheck()
     {
         RaycastHit2D[] hits = new RaycastHit2D[5];
         int numhhits = _rbody.Cast(Vector2.down, hits, GROUND_DETECTION_RANGE);
-        return numhhits > 0;
+        OnGround = numhhits > 0;
     }
 }
