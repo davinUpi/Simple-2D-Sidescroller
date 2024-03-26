@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d79599208ae96a14ea064013119a72db, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  playerHealthPercentageChannel: {fileID: 11400000, guid: b7d3aad68b65be14a829209ff13780d5, type: 2}
+  playerIsDeadChannel: {fileID: 0}
+  ScoreChanged: {fileID: 11400000, guid: 47a6cde8f90f53c43a80fdd884ebf63d, type: 2}

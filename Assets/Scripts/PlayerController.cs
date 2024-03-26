@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private Collider2D _collider;
     private Animator _animator;
 
+    [SerializeField] private PlayerData playerData;
+
     [SerializeField] private float MoveSpeed = 10f;
     [SerializeField] private float JumpPower = 5f;
 
@@ -46,10 +48,8 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("IsRunning", _horizontalMove != 0);
             }
         }
-        get 
-        { 
-            return _horizontalMove;
-        }
+        get => _horizontalMove;
+        
     }
 
     private bool _onGround = true;
@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GroundCheck();
+
         _animator.SetFloat("VSpeed", _rbody.velocity.y);
 
         HorizontalMove = Input.GetAxis("Horizontal");
