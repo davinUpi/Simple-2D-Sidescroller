@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backdrop
+    uniqueID: 989011917
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -13,6 +13,33 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 5f;
 
     private bool _onTheGround;
+    public bool OnTheGround
+    {
+        private set
+        {
+            if(_onTheGround != value)
+            {
+                _onTheGround = value;
+                _animator.SetBool("grounded", _onTheGround);
+            }
+        }
+        get => _onTheGround;
+    }
+
+    private float _verticalSpeed;
+    public float VerticalSpeed
+    {
+        private set
+        {
+            if(_verticalSpeed != value)
+            {
+                _verticalSpeed = value;
+                _animator.SetFloat("ySpeed", _verticalSpeed);
+            }
+
+        }
+        get => _verticalSpeed;
+    }
 
     private float _horizontalMovement;
     public float HorizontalMovement
@@ -69,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GroundCheck();
+        VerticalSpeed = _rbody.velocity.y;  
+
         HorizontalMovement = Input.GetAxis("Horizontal");
         Jump();
     }
@@ -90,13 +119,14 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit2D[] hits = new RaycastHit2D[5];
         int numhits = _rbody.Cast(Vector2.down, hits, 0.5f);
-        _onTheGround = numhits > 0;
+        OnTheGround = numhits > 0;
     }
 
     private void Jump()
     {
-        if(Input.GetButtonDown("Jump") && _onTheGround)
+        if(Input.GetButtonDown("Jump") && OnTheGround)
         {
+            _animator.SetTrigger("jumpTrigger");
             _rbody.AddForce(
                     Vector2.up * jumpHeight, 
                     ForceMode2D.Impulse
